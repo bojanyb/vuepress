@@ -1,6 +1,6 @@
 module.exports = {
-    title: '个人主页', 
-    description: '杨一博的博客',
+    title: 'LearningSpace', 
+    description: '我的学习空间',
     head: [
         ['link', { rel: 'icon', href: '/img/logo.ico' }],
         ['link', { rel: 'manifest', href: '/manifest.json' }],
@@ -20,38 +20,14 @@ module.exports = {
         ],
         sidebar: [
             {
-                title: "前端基础",
+                title: "编程基础",
                 collapsable: true,
                 children:[
-                    ['/frontend/htmlCss.md', 'HTML、CSS'],
-                    ['/frontend/ES5.md', 'ES5'],
-                    ['/frontend/ES6.md', 'ES6'],
-                    ['/frontend/vue.md', 'VUE'],
+                    ['/frontend/HTML(5).md', 'HTML(5)'],
+                    ['/frontend/CSS(3).md', 'CSS(3)'],
+                    ['/frontend/JavaScript(ES6).md', 'JavaScript(ES6)']
                 ]
             },
-            {
-                title: "浏览器基础",
-                collapsable: true,
-                children:[
-                    ['/frontend/htmlCss.md', 'HTML、CSS'],
-                    ['/frontend/ES5.md', 'ES5'],
-                    ['/frontend/ES6.md', 'ES6'],
-                    ['/frontend/vue.md', 'VUE'],
-                ]
-            },
-            {
-                title: "网络基础",
-                collapsable: true,
-                children:[
-                    ['/frontend/htmlCss.md', 'HTML、CSS'],
-                    ['/frontend/ES5.md', 'ES5'],
-                    ['/frontend/ES6.md', 'ES6'],
-                    ['/frontend/vue.md', 'VUE'],
-                ]
-            },
-            ['/frontend/', '前端'],
-            ['/ios/', 'test'],
-            ['/ios/', '发布新框架'],
             ['/ios/', '问题反馈'],
             {
                 title: "一个列表",
