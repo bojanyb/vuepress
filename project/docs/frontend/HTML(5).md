@@ -24,13 +24,31 @@
 - 搜索引擎的爬虫依赖于标记来确定上下文和各个关键词的权重，利于SEO
 - 使阅读源代码的人对网站更容易网站分块，便于阅读维护理解
 
-### 4 `DOCTYPE`
+### 4 html5有哪些新特性、移除了哪些元素？
+
+- `html5`现在已经不是`SGML`的子集，主要是关于图像，位置，存储，多任务等功能的增加
+- 新增选择器 `document.querySelector`、`document.querySelectorAll`
+- 拖拽释放（`Drag and drop`）API
+- 媒体播放的`video`和`audio`
+- 本地存储`localStroeage`和`sessionStroeage`
+- 离线应用 `manifest`
+- 桌面通知 `Notifications`
+- 语义化标签 `article`、`footer`、`header`、`nav`、`section`
+- 增强表单控件 `calendar`、`date`、`time`、`email`、`url`、`sraech`
+- 地理位置 `Geolocation`
+- 多任务 `webworker`
+- 全双工通信协议 `websocket`
+- 历史管理 `history`
+- 跨域资源共享(`CORS`) `Access-Control-Allow-Origin`
+- 页面可见性改变事件
+
+### unsorted `DOCTYPE`
 
 - 前端经常在`HTML`都不看到`DOCTYPE`的声明，一般常位于文档的第一行。那么他的作用是什么，可能对新的浏览器或者心得网站暂无什么影响，但是对相对古老的浏览器或者网站，可能会出现不同，因为浏览器有标准模式与兼容模式，差异相对比较大
 - 标准模式的渲染方式和`JS`引擎的解析方式都是以该浏览器支持的最高标准运行。兼容模式中，页面以宽松的向后兼容显示，模拟老式浏览器的行为以防止站点无法工作
 - 而`DOCTYPE`的存在，就是为了声明，该页面使用标准模式。不声明，可能一些旧的网站会出现兼容模式
 
-### 5 link与@import
+### unsorted link与@import
 
 - `link`与`import`，本质使用上，我们都是用他来引入`CSS`，但是他们有一定的区别。
 - `link`是一种引入资源的标签，`import`是引入`CSS`的方式。所以，`import`引入的只能是`CSS`，而`link`可以引入所有的资源，包括图片，`RSS`等
@@ -39,7 +57,7 @@
 - 动态引入样式`link`可以后期引入样式，而`import`是不可以后期引入的，只能初始化页面之前引入
 - 复用率的问题`import`可以复用之前的`css`文件，而`link`只能一次引入一个文件。当然，`import`复用文件时，在浏览器实际上是加载了多个文件，会有多个请求。而每一个`link`只是一个`http`请求
 
-### 6 `<script>`标签的`async`与`defer`属性
+### unsorted `<script>`标签的`async`与`defer`属性
 
 - 首先这两个东西为什么而存在的问题。在日渐复杂的前端，异常已经是程序的一部分。如果出现一些小问题，或者服务器加载上出现延迟。而我们默认的引入的`script`脚本,会阻塞后续的DOM渲染。一旦没有部分异常无法及时加载完成，那么我们的页面因为阻塞问题，将整个白屏
 - 也许我们可以保证自己的服务器的正常，但是你决定保证不了第三方服务器的正常，于是引入了`async`和`defer`来优化这个问题
@@ -48,3 +66,12 @@
 - `async`情况下：`acync`，加载和渲染后续文档元素的过程将和`script.js`的加载与执行并行进行（异步）。async是乱序的
 - `defer`情况下：`defer`，加载后续文档元素的过程将和`script.js`的加载并行进行（异步），但是`script.js`的执行要在所有元素解析完成之后，`DOMContentLoaded `时间处罚之前完成，`defer`是顺序执行。
 - 此外，`async`跟`defer`，不支持或者不兼容`IE9`以下浏览器，总体来说，笔者还是觉得`script`放最下方靠谱一些
+
+### unsorted 捕捉，冒泡与委托
+
+- 适合用事件委托的事件： `click`，`mounsedown`，`mouseup`，`keydown`，`keyup`，`keypress`
+- 执行顺序：捕捉 --》目标- -》冒泡
+- `event.stopPropagation()`阻止事件的传递行为，即阻止事件冒泡
+- `event.preventDfault()`阻止默认行为,比如阻止a的href
+- 优点：1.减少事件注册，节省内存。例如上面代码，只指定父元素的处理程序，即可管理所有的子元素的`click`事件；2.简化了`dom`节点更新时，相应事件的更新
+- 缺点：1.利用事件冒泡的原理，不支持不冒泡的事件；2.层级过多，冒泡过程中，可能会被某曾阻止掉；3.理论上委托会导致浏览器频繁调用处理函数，虽然很可能不需要处理。所以建议就近委托，比如在`ol`上代理`li`，而不是在`document`上代理`li`。4.把所有事件都用代理就可能会出现事件误判。比如，在`document`中代理了所有`button`的`click`事件，另外的人在引用改`js`时，可能不知道，造成单机button出发了两个`click`事件
