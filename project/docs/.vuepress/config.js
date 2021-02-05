@@ -25,17 +25,18 @@ module.exports = {
                 children:[
                     ['/frontend/HTML(5).md', 'HTML(5)'],
                     ['/frontend/CSS(3).md', 'CSS(3)'],
-                    ['/frontend/JavaScript(ES6).md', 'JavaScript(ES6)']
+                    ['/frontend/JavaScript(ES6).md', 'JavaScript(ES6)'],
+                    ['/frontend/practice.md', '实践']
                 ]
             },
             ['/ios/', '问题反馈'],
-            {
-                title: "一个列表",
-                collapsable: true,
-                children:[
-                    ['/ios/test.md', '子项'],
-                ]
-            },
+            // {
+            //     title: "一个列表",
+            //     collapsable: true,
+            //     children:[
+            //         ['/ios/test.md', '子项'],
+            //     ]
+            // },
         ],
         sidebarDepth: 2,
         lastUpdated: 'Last Updated', 

@@ -108,7 +108,7 @@ proxyTable: { //配置代理
 
 - 获取移动浏览器实际可用高度：去掉顶部地址栏、底部操作栏
 
-```
+```js
 function getBrowserInterfaceSize() {
     var pageWidth = window.innerWidth;
     var pageHeight = window.innerHeight;
@@ -133,7 +133,7 @@ function getBrowserInterfaceSize() {
 
 - 也可以利用 meta 标签让浏览器直接全屏，代码如下：
 
-```
+```html
 <!-- 启用 WebApp 全屏模式 -->
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
 
@@ -158,7 +158,7 @@ function getBrowserInterfaceSize() {
 
 ### 5 解决事件穿透的方法
 
-```
+```js
 //弹出框禁止滑动
 Vue.prototype.noScroll = function () {
     var mo = function (e) { e.preventDefault() }
@@ -176,7 +176,7 @@ Vue.prototype.noScroll = function () {
   }
 ```
 
-### 6 webpack重构
+### 6 `webpack`重构
 
 ```
 publicPath ： '' 根域上下文目录
@@ -220,9 +220,9 @@ NODE_ENV = 'production'
 
 ### 8 `toFixed`
 
-```
+```js
 NumberObject.toFixed(num)
-toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。
+// toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。
 
 var num =Number(13.37);
 console.log(num.toFixed(1)); //13.4
