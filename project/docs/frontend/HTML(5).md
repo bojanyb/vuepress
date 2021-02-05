@@ -26,7 +26,8 @@
 
 ### 4 html5有哪些新特性、移除了哪些元素？
 
-- `html5`现在已经不是`SGML`的子集，主要是关于图像，位置，存储，多任务等功能的增加
+`html5`现在已经不是`SGML`的子集，主要是关于图像，位置，存储，多任务等功能的增加
+
 - 新增选择器 `document.querySelector`、`document.querySelectorAll`
 - 拖拽释放（`Drag and drop`）API
 - 媒体播放的`video`和`audio`
@@ -40,7 +41,39 @@
 - 全双工通信协议 `websocket`
 - 历史管理 `history`
 - 跨域资源共享(`CORS`) `Access-Control-Allow-Origin`
-- 页面可见性改变事件
+- 页面可见性改变事件 `visibilitychange`
+- 跨窗口通信 `PostMessage`
+- `Form Data` 对象
+- 绘画 `canvas`
+
+移除的元素
+
+- 纯表现的元素： `basefont`、`big`、`center`、`font`、`s`、`strike`、`tt`、`u`
+- 对可用性产生负面影响的元素：`frame`、`frameset`、`noframes`
+
+支持`HTML5`新标签
+
+- `IE8/IE7/IE6`支持通过document.ceateElement方法产生的标签
+- 可以利用这一特性让这些浏览器支持`HTML5`新标签
+- 浏览器支持新标签后，还需要添加标签默认的样式
+- 当然也可以直接使用成熟的框架、比如`html5shim`
+
+如何区分HTML和HTML5
+
+- `DOCTYPE`声明、新增的结构元素、功能元素
+
+### 5 `HTML`的离线存储怎么使用，工作原理能不能解释一下？
+
+- 在用户没有与因特网连接时，可以正常访问站点或应用，在用户与因特网连接时，更新用户机器上的缓存文件
+- 原理：`HTML5`的离线存储是一个基于一个新建的`.appcache`文件的存储机制(不是存储技术)，通过这个文件上的解析清单离线存储资源，这些资源会想`cookie`一样被存储了下来。之后当网络在处于离线状态下时，浏览器会通过被离线存储的数据进行页面展示
+- 如何使用：
+- 页面头部像下面一样加入一个manifest属性
+- 在`cache.manifest`文件的编写离线存储的资源
+- 在离线状态时，操作`window.applicationCache`进行需求实现
+
+### 6 浏览器是怎么对`HTML5`的离线储存资源进行管理和加载的呢
+
+- 在线的情况下，浏览器发现`html`头部有`manifest`属性，它会请求`manifest`文件，如果第一次访问app，那么浏览器就会根据manifest文件的内容下载相应的资源并且进行离线存储
 
 ### unsorted `DOCTYPE`
 
