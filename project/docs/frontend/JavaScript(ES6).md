@@ -181,7 +181,22 @@ const {
 
 #### 4.对象定义
 
-```
+```js
+// ES5
+var a = 1
+var b = 2
+var c = 3
+var d = 4
+var obj = { a: a, b: b, c: c, d: d }
 
+// ES6
+// 前提是：属性名 与 变量名 一致
+const a = 1
+const b = 2
+const c = 3
+const d = 4
+const obj = { a, b, c, d }
+
+https://www.zhihu.com/search?type=content&q=es5
 ```
 
