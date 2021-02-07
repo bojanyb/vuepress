@@ -26,6 +26,7 @@ module.exports = {
                     ['/frontend/HTML(5).md', 'HTML(5)'],
                     ['/frontend/CSS(3).md', 'CSS(3)'],
                     ['/frontend/JavaScript(ES6).md', 'JavaScript(ES6)'],
+                    ['/frontend/vue3.0+ts.md', 'vue3.0 + ts'],
                     ['/frontend/practice.md', '实践']
                 ]
             },
