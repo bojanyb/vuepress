@@ -197,6 +197,44 @@ const c = 3
 const d = 4
 const obj = { a, b, c, d }
 
-https://www.zhihu.com/search?type=content&q=es5
+```
+
+### 异步（promise / callback）
+
+```js
+// ES5
+function isGreater(a, b, cb) {
+    var greater = false
+    if (a > b) {
+        greater = true
+    }
+    cb(greater)
+}
+
+is Greater(1, 2, function(result) {
+    if（result） {
+        console.log('greater')
+    } else {
+        console.log('smaller')
+    }
+})
+
+// ES6
+const isGreater = (a, b) => {
+    return new Promise((resolve, reject) => {
+        if(a > b) {
+            resolve(true)
+        } else {
+            reject(false)
+        }
+    })
+}
+
+isGreater(1, 2).then( result => {
+    console.log('greater')
+}).catch( result => {
+    console.log('smaller')
+})
+
 ```
 
