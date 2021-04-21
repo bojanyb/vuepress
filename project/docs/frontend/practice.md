@@ -229,3 +229,435 @@ console.log(num.toFixed(1)); //13.4
 console.log(num);//13.37
 ```
 
+### 9 `jsx`自定义`elementUI`表头
+
+```
+https://www.jianshu.com/p/101a0cba8465
+```
+
+
+
+### 10 `vue`+`elementUI`的表格第一行合计自定义显示
+
+```
+https://blog.csdn.net/qq_34953053/article/details/91388535?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=cb20a85e-d183-456f-9e14-752457495dd4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
+```
+
+### 11 **别用**`for in`遍历数组就能正常遍历，否则值为empty
+
+### 12 `formdata`
+
+- `formdata`类型其实是在`XMLHttpRequest`2级定义的，它是序列化表以及创建与表单格式相同的数据（当然是用于`XHR`传输）提供便利。
+- `formdata`是`ajax2.0`对象用以将数据编译成键值对，以便于`XMLHttpRequest Level 2` 提供一个接口对象，可以使用该对象来模拟和处理表单并方便的进行文件上传。
+- `formdata`对象的使用：1.用键值对来模拟一系列表单控件：即把form中所有表单元素的name与value组成一个`queryString` 2.异步上传二进制文件  
+
+```js
+ // 1. 创建空对象实例
+ let formData = new FormData(); // 此时可以调用append()方法来添加数据
+ // 2.使用已有的表单来初始化一个对象实例
+ // 假如现在页面已经有一个表单
+<form id="myForm" action="" method="post">
+    <input type="text" name="name">名字
+    <input type="password" name="psw">密码
+    <input type="submit" value="提交">
+</form>
+// 我们可以使用这个表单元素作为初始化参数，来实例化一个formData对象
+
+// 获取页面已有的一个form表单
+var form = document.getElementById("myForm");
+// 用表单来初始化
+var formData = new FormData(form);
+// 我们可以根据name来访问表单中的字段
+var name = formData.get("name"); // 获取名字
+var psw = formData.get("psw"); // 获取密码
+// 当然也可以在此基础上，添加其他数据
+formData.append("token","kshdfiwi3rh");
+
+// 发送数据
+// 我们可以通过xhr来发送数据
+let xhr = new XMLHttpRequest();
+xhr.open("post","login");
+xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+xhr.send(formData);
+
+// 这种方式可以来实现文件的异步上传。
+
+```
+
+
+
+### 13 深浅拷贝
+
+```js
+        function flatten(array) {
+            return [].concat(...array.map(item => {
+                return item
+            }))
+        }
+
+	   // 对象赋值深拷贝
+       this.postForm = Object.assign({}, defaultForm)
+	   为什么要用Object.assign？
+
+	 //上传表单之前要用深拷贝 不要影响到原来的表单
+	const book = Object.assign({}, this.postForm)
+```
+
+
+
+### 14 启用ESlint
+
+### 15 --no-ff
+
+### 16短路运算 && ||
+
+> a && b :   如果a表达式，不是布尔类型，先隐式转换为布尔值，如果为true，无论b为true或者false,都返回b的值；如果为false,则返回a的值
+>
+> a || b ：  通过隐式转换得到a的boolean 值，如果为true，则无论b的值为false或者true,都返回a的值；如果a的boolean值为false,则返回b的值
+
+### 17 上传组件怎么带参数
+
+### 18 中后台少用el-row ，主要自己写样式
+
+### 19 -S -D 
+
+### 20 调试
+
+### 21 表单验证抽象方法
+
+多种校验写多个`validateRequire`
+
+```js
+ const validateRequire = (rule, value, callback) => {
+      if(value.length === 0) {
+        callback(new Error(fields[rule.field] + '必须填写'))
+      } else {
+        callback()
+      }
+    }
+    
+   rules: {
+        title: [{ validator: validateRequire }],
+        author: [{ validator: validateRequire }],
+        publisher: [{ validator: validateRequire }],
+        language: [{ validator: validateRequire }]
+      }
+
+    submitForm() {
+      if (!loading) {
+        this.loading = true
+        this.$refs.postForm.validate((valid, fields) => {
+          if (valid) {
+          const message = fields[Object.keys[fields][0][0]].message
+          this.$message({message, type: 'error'})
+          } else {
+
+          }
+        })
+     }
+    },
+```
+
+
+
+### 22  `async await`
+
+```js
+function insertBook() {
+    return new Promise( async (resolve, reject) => {
+        try {
+            if (book instanceof Book) {
+                const result = await exists(book)
+                if (result) {
+                    await removeBook(book)
+                    reject(new Error('资源已存在'))
+                } else {
+                    await db.insert(book, 'book')
+                    await insertConents(book)
+                    resolve()
+                }
+            }
+        } catch {
+            reject(new Error('添加的目标对象不合法'))
+        }
+    })
+}
+
+```
+
+### 24 对象方法 
+
+```js
+model.hasOwnProperty(key) //是否是对象自身的key而非原型链上的key
+Object.keys（model） // 返回给定对象所有的key,返回一个数组
+book instanceof Book //
+```
+
+### 25 富文本编辑器 -- 深入学习`vue-admin`
+
+### 26 replace 置空操作
+
+```js
+`${dir}/${src}`.replace(this.unzipPath, '')
+onkeyup="value=value.replace(/[^\d]/g,'')"
+```
+
+### 27 `vue+element-ui`中的`el-table-column`配合v-if导致列样式与位置错乱的现象
+
+```js
+//根据需求，对el-table的某一列进行判断显隐时，经常会出现列的位置错乱和表头的样式变化的问题；
+//注：此问题不属于技术问题，可以再多看看框架文档；
+//ex:（会错乱的写法）
+<el-table-column v-if="type === '0' ">姓名</el-table-column>
+<el-table-column v-if="type === '1' ">年龄</el-table-column>
+
+//修改：
+<el-table-column v-if="type === '0' " key='1' >姓名</el-table-column>
+<el-table-column v-if="type === '1' " key='2' >年龄</el-table-column>
+//或
+<el-table-column v-if="type === '0' " : key="Math.random()">姓名</el-table-column>
+<el-table-column v-if="type === '1' " : key="Math.random()">年龄</el-table-column>
+
+//说明：
+//给使用了v-if的列，加一个固定的key值，或循环渲染key即可；
+//虽然仍会有一瞬间的表头的样式的改变和列的错乱，但是已经不影响数据的展示了；
+```
+
+### 28   `@keyup.enter.native="handlerfileter"`
+
+```JS
+@keyup.enter.native="handlerfileter" //native
+```
+
+### 29 关键词高亮
+
+```js
+      wrapperKeywork(k, v) {
+        function highlight(value) {
+          return `<span style="color: #1890ff">${ value }</span>`
+        }
+       if (!this.listQuery[k]) {
+         return v
+       } else {
+         return v.replace(new RegExp(this.listQuery[k], 'ig' ), v => highlight(v) )
+       }
+      },
+      getList() {
+          this.listLoading = true
+          listBook(this.listQuery).then(response => {
+             const { list } = response.data.list
+             this.list = list
+             this.listLoading = false
+             this.list.forEach(book => {
+               book.titleWrapper = this.wrapperKeywork('title', book.title)
+               book.authorWrapper = this.wrapperKeywork('author', book.author)
+             })
+          })
+      },
+```
+
+### 30 `autocomplete="off"`
+
+### 31 权限
+
+后端根据用户的权限动态生成的，不采用这种方式的原因如下：
+
+项目不断的迭代你会异常痛苦，前端新开发一个页面还要后端配一下路由和权限，让我们想了曾经前后端不分离，被后端支配的那段恐怖时间了。
+
+其次，就那我司的业务来说，虽然后端的确也是有权限验证的，但他的验证其实是针对业务来划分的。比如超级编辑可以发布文章，而实习编辑只能编辑文章不能发布，但对于前段来说，不管是超级编辑还是实习编辑都是有权限进入文章编辑页面的，所以前端和后端的划分是不太一致的。
+
+`src/store/modules/permission.js`
+
+```js
+import { asyncRoutes, constantRoutes } from '@/router'
+import { getAuthMenu } from '@/api/user'
+import Layout from '@/layout'
+ 
+/**
+ * Use meta.role to determine if the current user has permission
+ * @param roles
+ * @param route
+ */
+function hasPermission(roles, route) {
+  if (route.meta && route.meta.roles) {
+    return roles.some(role => route.meta.roles.includes(role))
+  } else {
+    return true
+  }
+}
+ 
+/**
+ * 后台查询的菜单数据拼装成路由格式的数据
+ * @param routes
+ */
+export function generaMenu(routes, data) {
+  data.forEach(item => {
+    // alert(JSON.stringify(item))
+    const menu = {
+      path: item.url === '#' ? item.menu_id + '_key' : item.url,
+      component: item.url === '#' ? Layout : () => import(`@/views${item.url}/index`),
+      // hidden: true,
+      children: [],
+      name: 'menu_' + item.menu_id,
+      meta: { title: item.menu_name, id: item.menu_id, roles: ['admin'] }
+    }
+    if (item.children) {
+      generaMenu(menu.children, item.children)
+    }
+    routes.push(menu)
+  })
+}
+ 
+/**
+ * Filter asynchronous routing tables by recursion
+ * @param routes asyncRoutes
+ * @param roles
+ */
+export function filterAsyncRoutes(routes, roles) {
+  const res = []
+  routes.forEach(route => {
+    const tmp = { ...route }
+    if (hasPermission(roles, tmp)) {
+      if (tmp.children) {
+        tmp.children = filterAsyncRoutes(tmp.children, roles)
+      }
+      res.push(tmp)
+    }
+  })
+  return res
+}
+ 
+const state = {
+  routes: [],
+  addRoutes: []
+}
+ 
+const mutations = {
+  SET_ROUTES: (state, routes) => {
+    state.addRoutes = routes
+    state.routes = constantRoutes.concat(routes)
+  }
+}
+ 
+const actions = {
+  generateRoutes({ commit }, roles) {
+    return new Promise(resolve => {
+      const loadMenuData = []
+      // 先查询后台并返回左侧菜单数据并把数据添加到路由
+      getAuthMenu(state.token).then(response => {
+        let data = response
+        if (response.code !== 0) {
+          this.$message({
+            message: '菜单数据加载异常',
+            type: 0
+          })
+        } else {
+          data = response.data.menuList
+          Object.assign(loadMenuData, data)
+          generaMenu(asyncRoutes, loadMenuData)
+          let accessedRoutes
+          if (roles.includes('admin')) {
+            // alert(JSON.stringify(asyncRoutes))
+            accessedRoutes = asyncRoutes || []
+          } else {
+            accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+          }
+          commit('SET_ROUTES', accessedRoutes)
+          resolve(accessedRoutes)
+        }
+        // generaMenu(asyncRoutes, data)
+      }).catch(error => {
+        console.log(error)
+      })
+    })
+  }
+}
+ 
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions
+}
+```
+
+src/api/user.js
+
+```js
+import request from '@/utils/request'
+ 
+export function login(data) {
+  return request({
+    url: '/user/userLogin', // http://192.168.200.185:8090/user/login
+    method: 'post',
+    data
+  })
+}
+ 
+export function getInfo(token) {
+  return request({
+    url: '/user/info',
+    method: 'get',
+    params: { token }
+  })
+}
+ 
+export function logout() {
+  return request({
+    url: '/user/logout',
+    method: 'post'
+  })
+}
+ 
+export function getAuthMenu(token) {
+  return request({
+    url: '/dashboard',
+    method: 'get',
+    params: { token }
+  })
+}
+```
+
+### 32 合理的权限控制
+
+1. 前端输入账号密码，获取token。
+2. 在路由跳转之前，请求user_info拿到roles一个数组。
+3. 如果是`admin`显示所有路由，如果是其他角色，匹配role和router.meta.roles的角色，返回一个新路由。
+4. 然后渲染在侧边栏。
+
+### 33 上传
+
+```js
+
+ <el-upload
+     v-if="row.applyType === 1"
+     action
+     :show-file-list="false"
+     :http-request="uploadFile"
+ >
+<el-button size="mini" style="margin-left: 10px" @click="beforeUploadClick(row)" >
+  导入
+</el-button>
+ </el-upload>
+
+
+uploadFile(option) {
+       let form = new FormData()
+       form.append('file', option.file)
+       let actSn = this.activeSn
+       postExcelCode(form, actSn).then(res => {
+         if(res.data.code === 200) {
+          this.$message({
+                type: 'success',
+                message: '导入成功!'
+              });
+          } else {
+              this.$message({
+                message:'导入失败!',
+                type: 'warning'
+              })
+          }
+       }) 
+    },
+```
+

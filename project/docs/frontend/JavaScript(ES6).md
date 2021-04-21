@@ -113,6 +113,11 @@ let result =  arr.isArray（arr） // true
  },[])
  console.log(newArr); // [0, 1, 2, 3, 4, 5]
 
+// 连接两个或多个数组
+let a = [1,2,3];
+console.log(a.concat(4,5)) // [1,2,3,4,5]
+
+
 
 ```
 
@@ -236,5 +241,11 @@ isGreater(1, 2).then( result => {
     console.log('smaller')
 })
 
+```
+
+### 深浅拷贝
+
+```js
+newArray = oldArray.slice(); //slice会clone返回一个新数组
 ```
 
