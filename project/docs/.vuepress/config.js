@@ -25,9 +25,38 @@ module.exports = {
                 children:[
                     ['/frontend/HTML(5).md', 'HTML(5)'],
                     ['/frontend/CSS(3).md', 'CSS(3)'],
-                    ['/frontend/JavaScript(ES6).md', 'JavaScript(ES6)'],
-                    ['/frontend/vue3.0+ts.md', 'vue3.0 + ts'],
-                    ['/frontend/practice.md', '实践']
+                    ['/frontend/JavaScript(ES6).md', 'JavaScript(ES6)']
+                ]
+            },
+            {
+                title: "工作实战",
+                collapsable: true,
+                children:[
+                    ['/frontend/practice.md', '实践'],
+                    ['/frontend/vue-admin.md', 'Vue-admin'],
+                    ['/frontend/webpack.md', 'Webpack'],
+
+                ]
+            },
+            {
+                title: "进阶之路",
+                collapsable: true,
+                children:[
+                    ['/frontend/vue3.0+ts.md', 'Vue3.0 + ts'],
+                    ['/frontend/vue+node.js.md', 'Node']
+                ]
+            },
+            {
+                title: "计算机基础",
+                collapsable: true,
+                children:[
+                    ['/frontend/General Education/operating system.md', '操作系统'],
+                ]
+            },
+            {
+                title: "技术之外",
+                collapsable: true,
+                children:[
                 ]
             },
             ['/ios/', '问题反馈'],
