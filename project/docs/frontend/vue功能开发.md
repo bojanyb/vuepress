@@ -47,3 +47,67 @@ methods: {
   ]
 ```
 
+### permission
+
+#### directive Permission
+
+v-permission 自定义指令 
+
+```
+// index.js
+import permission from './permission'
+
+const install = function(Vue) {
+  Vue.directive('permission', permission)
+}
+
+if (window.Vue) {
+  window['permission'] = permission
+  Vue.use(install); // eslint-disable-line
+}
+
+permission.install = install
+export default permission
+
+// permission.js
+
+import store from '@/store'
+
+function checkPermission(el, binding) {
+  const { value } = binding
+  const roles = store.getters && store.getters.roles
+
+  if (value && value instanceof Array) {
+    if (value.length > 0) {
+      const permissionRoles = value
+
+      const hasPermission = roles.some(role => {
+        return permissionRoles.includes(role)
+      })
+
+      if (!hasPermission) {
+        el.parentNode && el.parentNode.removeChild(el)
+      }
+    }
+  } else {
+    throw new Error(`need roles! Like v-permission="['admin','editor']"`)
+  }
+}
+
+export default {
+  inserted(el, binding) {
+    checkPermission(el, binding)
+  },
+  update(el, binding) {
+    checkPermission(el, binding)
+  }
+}
+```
+
+
+
+#### role Permission
+
+
+
+继续...

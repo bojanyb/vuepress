@@ -5723,6 +5723,14 @@ Both admin and editor can see thisv-permission="['admin','editor']" // admin和e
 
 
 
+### 33 最终的两套权限方案
+
+1. 类似`vue-admin`的用role数组匹配对应路由的`roleId`, 过滤出对应的菜单。
+2. ![img](C:\Users\EDZ\AppData\Local\Temp\WeChat Files\ec20f6e3c3c7546e0ea47cdf701d0e3.png)
+3. 用第一种方法，但是自己在界面上加菜单。
+
+
+
 ### 33 上传
 
 ```js

@@ -118,6 +118,11 @@ let a = [1,2,3];
 console.log(a.concat(4,5)) // [1,2,3,4,5]
 
 
+// Array 去重
+Array.from(new Set(array));
+
+// include
+
 
 ```
 
@@ -245,7 +250,97 @@ isGreater(1, 2).then( result => {
 
 ### 深浅拷贝
 
+在学习深拷贝之前，我们要先搞明白什么是深拷贝
+
+在`js`中，数据类型分为基本数据类型和引用数据类型两种，对于基本数据类型来说，它的值直接存储在栈内存中，而对于引用类型磊说，它在栈内存中仅仅存储一个引用，而真正的数据存储在堆内存中
+
+浅拷贝而言，就是只拷贝对象的引用，而不是深层次的拷贝对象的值，多个对象指向堆内存中的同一对象，任何一个修改都会使得所有对象的值修改，因为他们公用一条数据。
+
+我们在实际的项目中，肯定不能让每个对象的值都指向同一个堆内存，这样的话不便于我们做操作，所以自然而然的诞生了深拷贝。
+
+深拷贝不会拷贝引用类型的引用，而是引用类型的值，全部拷贝一份，形成一个新的引用类型，这样就不会发生引用错乱的问题。
+
 ```js
-newArray = oldArray.slice(); //slice会clone返回一个新数组
+// 乞丐版的深拷贝 JSON.stringify()以及JSON.parse()
+let obj1 = {
+    a：1，
+    b: 2,
+    c: 3
+}
+let objString = JSON.parse(JSON.stringifg(obj))
+// 缺点： 它是不可以拷贝undefined，function，RegExp等类型的
+
+// Object.assign(target, source)
+let obj2 = Object.assign({}, obj1)
+// 缺点：一层对象没问题，如果对象的属性对应的是其他的引用类型的话，还是只拷贝了引用，修改的话还是有问题。
+
+// 第三种方式 递归拷贝
+// 定义一个深拷贝函数 接收目标target参数
+function deepClone(target) {
+    // 定义一个变量
+    let result 
+    // 如果当前需要深拷贝的是一个数组的话
+    if (Array.isArray(target)) {
+        result = [] //将result赋值为一个数组，并执行遍历
+        for (let i in target) {
+            // 递归克隆数组中的每一项
+            result.push(deepClone(target[i]))
+        }
+        // 判断如果当前的值是null，直接复制为null
+    } else if （target === null） {
+        result = null
+        // 判断如果当前的值是一个RegExp对象的话，直接赋值
+    } else if (target.constructor === RegExp) {
+        result = target
+    } else {
+        // 否则是普通对象，直接for in循环，递归赋值对象的所有值
+        result = {}
+        for(let i in target) {
+            result[i] = deepClone(target[i])
+        }
+    }
+    //如果不是对象的话，就是基本数据类型，那么直接赋值
+    result = target
+}
+// 返回最终结果
+return result
+}
+
+// 数组深拷贝方法
+// 返回一个新数组
+let newArray = oldArray.slice(); //slice会clone返回一个新数组
+// 连接多个数组
+let  newArray = oldArray.concat(Array1, Array2);//concat会连接两个或多个数组
+```
+
+```js
+function deepClone(target) {
+    const _toString = Object.prototype.toString
+    let result
+    if (typeof target === 'Object') {
+        if (_toString.call(target) === '[Object Array]') {
+            result = []
+            for (let i in target) {
+                result.push(deepClone(target[i]))
+            }
+        }
+        else if (_toString.call(target) === '[Object RegExp]') {
+            result = target
+        }
+        else if (_toString.call(target) === '[Object Object]') {
+            result = {}
+            for (let i in target) {
+                result[i] = deepClone(target[i])
+            }
+        }
+        else if (target === null) {
+            result = null
+        }
+    } else {
+        result = target
+    }
+    return result
+}
+
 ```
 
