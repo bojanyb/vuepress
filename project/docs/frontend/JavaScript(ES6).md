@@ -130,6 +130,14 @@ Array.from(new Set(array));
 
 > 增加了`Object.getPrototypeOf` 、`Object.create`、`Object.getOwnPropertyNames`、`Object.defineProperty`、`Object.getOwnPropertyDescriptor`、`Object.defineProperties`、`Object.keys`、`Object.preventExtensions / Object.isExtensible`、`Object.seal / Object.isSealed`、`Object.freeze / Object.isFrozen` 
 
+#### 4.`String`方法
+
+```js
+
+```
+
+
+
 ### 什么是`ES6` ？
 
 #### 1.箭头函数
