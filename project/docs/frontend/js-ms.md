@@ -511,3 +511,485 @@ for (var i = 1; i <= 5; i++) {
 https://blog.csdn.net/weixin_38984353/article/details/80393412
 ```
 
+```js
+// js中如何以最简单的方式将数组元素添加到对象中
+
+let arr = [1,2,3,4,5]
+let obj = {}
+
+// 遍历数组,然后挨个赋值到obj,然后再添加length属性
+for(let i = 0; i < arr.length; i++) {
+    obj[i] = arr[i]
+}
+obj.length = arr.length;
+
+// obj没有数组的push方法，所以用apply来借用arr的push方法给obj
+arr.push.apply(obj, arr)
+
+// 把二维数组变成一维数组
+// reduce prev上一次回调的值，cur下一个数组元素
+let arr = [[1,2],[3,4],[5,6],[7,8]]
+let newArr = arr.reduce(function(prev, cur) {
+        return prev.concat(cur)
+}) // [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+
+// apply方法
+let newArr = []
+let arr1 = newArr.concat.apply(newArr, arr)
+```
+
+### 基础MS
+
+> 题目 - 1
+>
+> `typeof`能判断哪些类型
+>
+> 何时使用===，何时使用==
+>
+>  `window.onload`和`DOMContentLoaded`的区别
+>
+> 题目 - 2
+>
+> `js`创建10个<a>标签，点击的时候弹出对应的序号
+>
+> 手写节流`throttle`、防抖`debounce`
+>
+> `Promise`解决了什么问题
+
+**变量类型和计算**
+
+> `typeof` 能判断哪些类型
+>
+> 何时使用 === 何时使用 ==
+>
+> 值类型和引用类型的区别
+>
+> 手写深拷贝
+
+> 值类型 vs 引用类型
+>
+> 常见值类型 `undefined` `string` `number` `boolean` `symbol`
+>
+> 常见引用类型 `object` `array` `null` （指针指向空地址 特殊） `function`(不会存储数据 特殊)
+>
+> `typeof` 运算符
+>
+> 深拷贝
+
+```js
+// typeof 能判断哪些类型
+// 识别所有值类型  
+typeof 100 // number 
+// 识别函数 
+typeof function () {} // function
+// 判断是否是引用类型（不可在细分，object）
+typeof {} // object
+typeof [] // object
+ 
+// 何时使用 === 何时使用 ==
+// 除了 == null之外，其他一律用===
+// obj.a==null 相当于 obj.a === null || obj.a = undefined
+// 值类型和引用类型的区别
+值类型存在栈内存，引用类型存在堆内存，栈内存存放是引用地址
+// 手写深拷贝
+上面有些
+```
+
+
+
+**原型和原型链**
+
+> 如何判断一个变量是不是数组
+>
+> 手写一个简易的`jQuery`，考虑插件和扩展性
+>
+> class的原型本质，怎么理解？
+
+> `class`和继承
+>
+> 类型判断`instanceof`
+>
+> 原型和原型链
+
+```js
+// class  通过constructor构建属性和方法
+// constructor
+// 属性
+// 方法
+class Student {
+    constructor(name, number) {
+        this.name = name
+        this.number = number 
+    }
+    sayHi() {
+        console.log(`姓名${this.name}-学号${this.number}`)
+    }
+}
+// 通过类new一个实例
+let xialuo = new Student('夏洛', 100)
+xialuo.sayHi()
+
+// extends 
+// super
+// 扩展或重写方法
+
+// 父类
+class People {
+     constructor(name) {
+        this.name = name
+    }
+    eat() {
+        console.log(`姓名${this.name} - eat somethind`)
+    }
+}
+
+// 子类
+class Student extends People {
+        constructor(name, number) {
+                super(name)
+				this.number = number
+            }
+         sayHi() {
+               console.log(`姓名${this.name}-学号${this.number}`)
+         }
+}
+
+// 子类
+class Teacher extends People {
+        constructor(name, major) {
+                super(name)
+				this.major = major
+            }
+         teach() {
+               console.log(`姓名${this.name}-专业${this.major}`)
+         }
+}
+
+// 通过类new一个Student实例
+let xialuo = new Student('夏洛', 100)
+xialuo.sayHi()
+xialuo.eat()
+
+// 通过类new一个Teacher实例
+let wanglaoshi = new Teacher('王老师', '语文')
+wanglaoshi.teach()
+wanglaoshi.eat()
+
+
+// instanceof - 类型判断
+xialuo instanceof Student // true
+xialuo instanceof People // true
+xialuo instanceof Object // true
+
+// 通过instanceof判断这个变量属于哪个构造函数 
+// 可以判断引用类型
+
+未完
+```
+
+**作用域和闭包**
+
+> 
+
+**异步和单线程**
+
+> 同步和异步的区别是什么
+>
+> - 基于JS单线程语言
+> - 异步不会阻塞代码的执行
+> - 同步会阻塞代码的执行
+>
+> 手写promise加载一张图片
+>
+> 前端使用异步的场景有哪些
+
+> 单线程和异步
+>
+> - `JS`是单线程语言，只能同时做一件事
+> - 浏览器和`nodejs`已经支持`JS`启动进程，如Web Worker 
+> - `JS`和`DOM`渲染共用同一个线程，因为`JS`可已修改`DOM`结构
+> - 遇到等待（网络请求，定时任务）不能卡住
+> - 需要异步
+> - 回调callback函数形式
+
+> 应用场景
+>
+> - 网络请求，如`ajax`、图片加载
+> - 定时任务，如`setTimeout`
+>
+> callback hell（回调地狱） 和 promise
+
+
+
+```js
+// promise
+function getData(data) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(data)
+        }, 1000);
+    })
+}
+
+getData(100).then( res => {
+    console.log(res)
+    return getData(200)
+}).then( res => {
+    console.log(res);  
+    return getData(300)
+}).then( res => {
+    console.log(res);  
+    return getData(300)
+}).catch( err => console.log(err)
+)
+```
+
+**异步进阶**
+
+- event loop
+- promise 进阶
+- `async`/`await`
+- `微任务`/`宏任务`
+
+> - 请描述event loop（事件循环/事件轮询）的机制，可画图
+> - 什么是宏任务和微任务，两者有什么区别
+> - promise有哪三种状态？如何变化？
+
+**event loop （时间循环/时间轮询）**
+
+- `JS`是单线程运行的
+- 异步要基于回调来实现
+- `event loop`就是异步回调的实现原理
+
+> `JS`如何执行
+>
+> - 从前到后，一行一行执行
+> - 如果某一行执行报错，则停止下面代码的执行
+> - 先把同步代码执行完，再执行异步
+
+`event loop`执行过程
+
+- 浏览器
+- 调用栈 
+- `Web APIs`
+- `Callback Queue` 回调函数队列
+
+1. 同步代码先推入调用栈，调用栈会先执行该行代码，执行完毕后，清空调用栈。
+2. 继续执行下一行，如果遇到`setTimeout`, 会推入单独执行`web api`的栈，然后等待定时器时间到后，再把代码放入消息队列里面
+3. 然后先执行下一行同步代码，推入调用栈，执行完毕后，清空调用栈
+4. 这时调用栈已经没有可执行代码了，调用栈空闲会先尝试DOM渲染，然后就会启动事件循环机制，会一遍一遍执行循环，到消息队列里面去找有没有可执行函数
+5. 等到时间到了之后，再把函数推进消息队列，进行执行。
+
+> 1. 通过代码，一行一行在调用栈执行
+> 2. 遇到异步，先记录下，等待时机（定时，网络请求）
+> 3. 时机到了，就移动到消息列队
+> 4. 如果调用栈为空，同步代码执行完，事件循环开始工作
+> 5. 轮询查找消息队列，如果又则移动到调用栈
+> 6. 然后继续轮询查找
+
+**DOM事件和event loop**
+
+- DOM事件也使用回调，基于event loop
+
+**Promise的三种状态**
+
+1. 三种状态
+   - pending(待定) resolved（成功） rejected（失败）
+   - pending -> resolved 或 pending -> rejected
+   - 变化不可逆
+2. 状态的表现和变化
+   - pending状态，不会触发then和catch
+   - resolved状态，会触发后续的then回调函数
+   - reject状态，会触发后续的catch回调函数
+3. then和catch对状态的影响
+   - then正常返回resolved,里面有报错则返回rejected
+   - catch正常返回resolved，里面有报错则返回rejected
+   - 在链式调用中，如果遇到catch不会中断，会继续往下执行
+
+```js
+Promise.resolve().then(() => { // rejected
+    console.log(1) // 1
+    throw new Error('error1')
+}).catch(() => { // resolved
+    console.log(2) // 2
+}).then(() => { // resolved
+    console.log(3)  // 3
+}).catch (() => {
+    console.log(4)  // 4
+})
+```
+
+**`async await`**
+
+- 异步回调 回调地狱
+- promise then catch 链式调用，但也是基于回调函数
+- `async/await`是同步语法，彻底消灭回调函数
+
+**`async/await` 和 `Promise` 的关系**
+
+- 和promise并不互斥
+- 反而，两者相辅相成
+- 执行`async`函数，返回的是`promise`对象
+- `await`相当于`Promise`的`then`
+- try...catch可捕获异常，代替了`promise`的`catch`
+
+```js
+!(async function () {
+    const p1 = Promise.resolve(300)
+    const data = await p1 // await 相当于 Promise then
+    console.log('data', data);
+})()
+
+!(async function () {
+    const data1 = await 400 // await 相当于 Promise.resolve(400)
+    console.log('data1', data1);
+})()
+
+!(async function () {
+    const data2 = await fn1() // 网络请求写法
+    console.log('data2', data2);
+})()
+
+!(async function () {
+    const p4 = Promise.reject('err') // rejected 状态
+    try{
+        const res = await p4
+        console.log(res);
+    } catch(ex) {
+        console.error(ex); // try..catch 相当于 promise catch
+    }
+})()
+
+!(async function () {
+    const p4 = Promise.reject('err1') // rejected 状态
+    const res = await p4 // 不执行
+    console.log(res);
+})()
+```
+
+**异步的本质**
+
+- `JS`还是单线程，还得是有异步，还得是基于`event loop`
+- `async/await`只是一个语法糖，从语法层面解决异步回调的解决手段，但本质上还是异步执行。
+
+```js
+async function async1() {
+    console.log('async start'); // 2
+    await async2()
+    console.log('async1 end'); // 5
+}
+
+async function async2 () {
+    console.log('async2'); // 3
+}
+
+console.log('script start'); // 1
+async1()
+console.log('script end'); // 4
+```
+
+**`for of`**
+
+**宏任务和微任务**
+
+- Promise本身的同步的，promise.then()是异步操作
+- 宏任务： `setTimeout`、`setInterval`、`Ajax`、`DOM`事件
+- 微任务：`Promise`、`async/await`
+- 微任务执行时机比宏任务要早
+
+**`event loop`与`DOM`渲染**
+
+- `JS`是单线程的，而且和`DOM`渲染共用一个线程
+- `JS`执行的时候，得留一些时机供`DOM`渲染
+
+
+
+- 每次调用栈清空，即同步代码执行完
+- 都是DOM重新渲染的机会，DOM结构如有改变则重新渲染
+- 然后再去触发下一次事件循环
+
+
+
+**微任务和宏任务的区别**
+
+- 宏任务： DOM渲染后触发，如`setTimeout `
+
+- 微任务：DOM渲染前触发，如`Promise`
+
+
+
+
+**微任务和宏任务的根本区别**
+
+从event loop解释，为什么微任务执行更早
+
+`setTimeout`(宏任务) 调用栈  `Web APIs`  消息队列
+
+`Promise.then`(微任务) promise不会经过`Web APIs`
+
+微任务是`ES6`语法规定的，宏任务是由浏览器规定的
+
+微任务执行在DOM渲染之前，宏任务执行在DOM渲染之后
+
+
+
+**`webpack+babel`**
+
+- `ES6`模块化，浏览器暂不支持
+- `ES6`语法，浏览器并不完全支持
+- 压缩代码，整合代码，以让网页加载更快
+
+`webpack.config.js`
+
+```js
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exprots = {
+    mode: 'development', //环境
+    entry: path.join(__dirname,'src','index.js'), // 入口
+    output: { // 出口
+        filename: 'bundle.js',
+        path: path.join(__dirname,'dist')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: ['babel-loader'],
+                include: path.join(__dirname, 'src'),
+                exclude: /node_modules/
+            }
+        ]
+    }
+    plugins: [
+        new HtmlWebpackPlugin({ // 解析html的插件
+            template: path.join(__dirname,'src','index.html'),
+            filename: 'index.html'
+        })
+    ],
+    devServer: {
+        port: 3000,
+        contentBase: path.join(__dirname, 'dist')
+    }
+    
+}
+```
+
+`.babelrc`
+
+```
+npm install @babel/core @babel/preset-env babel-loader -D 安装三个插件
+
+{
+    "presets": ["@babel/preset-env"]
+}
+```
+
+`性能优化`
+
+`算法`
+
+`vue原理`
+
+`http`
