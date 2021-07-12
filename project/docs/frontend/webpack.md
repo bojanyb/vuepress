@@ -114,8 +114,12 @@
     - optimization
       - splitchunks
         - vendor //第三方模块
+          - 同下
         - common // 公共模块
+          - minChunks 公共模块最少复用过几次
+          - minSize 公共模块大小限制
   - 配置htmlwebpackplugin里的chunks 模块
+    - 表示入口下需要哪些chunk
   - chunk是什么
 
 - 懒加载
