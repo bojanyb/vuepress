@@ -5791,3 +5791,24 @@ bojan楊:
 直接 this.$attrs.变量名
 ```
 
+### 37 性能优化
+
+```js
+// 安装 babel-plugin-dynamic-import-node
+npm install babel-plugin-dynamic-import-node
+// vue-cli3：修改babel.config.js文件 （vue-cli3）
+// vue-cli2：.babelrc文件里添加配置dynamic-import-node
+module.exports = {
+    presets: [
+        '@vue/cli-plugin-babel/preset'
+    ],
+    'env': {
+        'development': {
+          'plugins': ['dynamic-import-node']
+        }
+    }
+}
+
+// 把所有require，改成import
+```
+
