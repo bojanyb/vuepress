@@ -6,7 +6,7 @@ width/height = content + border + padding
 
 #### `IE`盒模型
 
-width/height = content
+width/height = content （padding和border已经包含在content）
 
 #### `css3`支持改变盒模型
 
@@ -18,9 +18,9 @@ box-sizing: content-box (默认值) 标准盒模型
 
 box-sizing: border-box 怪异模式
 
-#### `行内元素和内联元素`
+#### `行内元素和块级元素`
 
-- **行内元素**：和有他元素都在一行上，高度、行高及外边距和内边距都不可改变，文字图片的宽度不可改变，只能容纳文本或者其他行内元素；
+- **行内元素**：和其他元素都在一行上，高度、行高及外边距和内边距都不可改变，文字图片的宽度不可改变，只能容纳文本或者其他行内元素；
 - **块级元素**：总是在新行上开始，高度、行高及外边距和内边距都可控制，可以容纳内联元素和其他元素；
 
 ### `选择器`
@@ -41,8 +41,10 @@ box-sizing: border-box 怪异模式
 
 #### `伪类和伪元素`
 
-- 冒号(`:`)用于`CSS3`伪类，双冒号(`::`)用于`CSS3`伪元素。
-- 首先，伪类的效果可以通过添加实际的类来实现，而伪元素的效果可以通过添加实际的元素来实现。所以它们的**本质区别就是是否抽象创造了新元素**。
+- 冒号(`:`)用于`CSS2`伪元素，双冒号(`::`)用于`CSS3`伪元素。
+- 首先，伪类的效果可以通过添加实际的类来实现，伪类是存在于DOM文档的。
+- 而伪元素的效果可以通过添加实际的元素来实现，伪元素不存在于DOM文档，需要创建。
+- 所以它们的**本质区别就是是否抽象创造了新元素**。
 
 ### `移动端适配`
 
@@ -149,6 +151,15 @@ rem是相对于`html`节点的`font-size`来做计算的，所以再页面初始
 3. 在适当的场景使用`flex`布局，或者配合`vw`进行自适应
 4. 在跨设备类型的时候（`pc` <-> 手机 <-> 平板）使用媒体查询
 5. 在跨设备类型如果交互差异太大的情况，考虑分开项目开发
+
+#### **移动端适配流程改进版**
+
+- flexible方案
+  - 在rem方案上进行改进，可以使用js动态来设置根字体，将html节点的font-size设置为视口宽度的1/10
+  - 设置视口的width为device-width，等比设置viewport里面maximum-scale的值
+- viewport方案
+  - 设置meta标签，在 html 头部设置 meta 标签，让当前 viewport 的宽度等于设备的宽度，同时不允许用户手动缩放。
+  - px自动转换为vw，手动转换影响开发效率，社区提供了postcss-px-to-viewport插件，在webpack进行配置
 
 ### `浏览器兼容性方案`
 
@@ -483,3 +494,64 @@ rem是相对于`html`节点的`font-size`来做计算的，所以再页面初始
 - 在`main`里面加一个内容层，如果知道盒子模型，就知道我们是不能直接给`main`添加`margin`属性的，因为我们已经设置了`width: 100%;`，再设置`margin`的话就会超过窗口的宽度，所以我们再创造一个内容层，将所有要显示的内容放到`main-content`中，给`main-content`设置`margin`就可以了。
 - 因为不改变父元素所以只需要给`main-content`设置`margin: 0 200px 0 200px;`属性就可以了达到效果
 - 然后再给`left`加上margin-left：-100%；`right`加上margin-left: -200px;
+
+#### flex布局
+
+> 题目：用flex布局画一个点数为三的色子
+
+- 首先一个父容器下面有三个`item`
+- 在父容器上定义容器属性`dispaly：flex;`和主轴对齐方式`justify-content: space-between;` 
+- 用伪类选择器`nth-child()`选中`item`，第二个定义项目属性`align-self`定义项目自身的对齐方式，不设置会继承父容器的对齐方式。
+
+#### 垂直水平居中法
+
+```css
+// 水平居中 
+.container-1 {
+    text-align: center; // 如果是行内元素
+ }
+.container-2 {
+    margin: auto; // 如果是块级元素
+ }
+.container-3 {
+    position: absolute;
+    left: 50%; // 如果是绝对定位元素，而且已知宽度
+    width: 100px;
+  	height: 100px;
+    margin-left: -50px; // 自身高度的一半
+ }
+
+// 垂直居中
+.container-1 {
+    line-height: （height）px; // 如果是行内元素，父元素有高度，line-height等于height的高度。
+ }
+.container-2 {
+    position: absolute; // 如果是绝对定位元素，而且已知高度
+    top: 50%; 
+    margin-top: -50px;
+ }
+.container-3 {
+    position: absolute; // 如果是绝对定位元素，而且未知高度
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+ }
+
+.container-4 {
+    position: absolute; // 如果是绝对定位元素，而且未知高度
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+ }
+
+```
+
+### 旁门左道
+
+#### `line-height`如何继承
+
+- 父容器写具体数值，如30px，则继承该值（比较好理解）
+- 父容器写比例，如 2 / 1.5，则继承该比例（比较好理解）
+- 父容器写百分比，如200%，则继承font-size * 百分比计算出来的值
